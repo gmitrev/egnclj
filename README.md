@@ -1,29 +1,29 @@
-# egn
+# Egn
 
 EGN(ЕГН) is the national identification number of Bulgarian citizens.
 This clojure library is designed to validate and parse such numbers.
 
 ## Usage
+```clj
+(require '[egn.core :as egn]))
 
-    (require '[egn.core :as egn])')
+; Validate numbers
+(egn/validate "7104041555")
+=> true
 
-    ; Validate numbers
-    (egn/validate "7104041555")
-    => true
+(egn/validate "7194041555")
+=> false
 
-    (egn/validate "7194041555")
-    => false
+; Parse them for information
+(egn/parse "7104041555")
+=> {:birth-date #<DateTime 1971-04-04T00:00:00.000Z> :gender :female}
 
-    ; Parse them for information
-    (egn/parse "7104041555")
-    => {:birth-date #<DateTime 1971-04-04T00:00:00.000Z> :gender :female}
+(:gender (egn/parse "9509209819"))
+=> :female
 
-    (:gender (egn/parse "9509209819"))
-    => :female
-
-    (:birth-date (egn/parse "9509209819"))
-    => #<DateTime 1995-09-20T00:00:00.000Z>
-
+(:birth-date (egn/parse "9509209819"))
+=> #<DateTime 1995-09-20T00:00:00.000Z>
+```
 ## License
 
 Copyright © 2015 Georgi Mitrev
