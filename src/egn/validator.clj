@@ -2,7 +2,7 @@
   (:require [clj-time.format :as f]
             [clojure.string :as string :only [split]]))
 
-(declare validate-length validate-date validate-checksum)
+(declare validate-length validate-date validate-checksum determine-date parse-int)
 
 (defn validate
   "Calls all validators"
@@ -12,12 +12,7 @@
          (validate-date egn-str)
          (validate-checksum egn-str))))
 
-(defn- validate-length
-  "Ensure EGN length is 10 symbols"
-  [egn]
-  (= (count egn) 10))
-
-(defn- determine-date
+(defn determine-date
   "
   The EGN can have three different formats depending on the century. It can be determined by examining the month.
   The rules are as follows:
@@ -26,12 +21,20 @@
   * For people born in 2000..2099 the month is increased by 40 (e.g December is 52)
   "
   [y m]
-  (let [year  (read-string y)
-        month (read-string m)]
+  (let [year  (parse-int y)
+        month (parse-int m)]
     (cond
       (contains? (set (range  1 13)) month) [(+ 1900 year) month]
       (contains? (set (range 21 33)) month) [(+ 1800 year) (- month 20)]
       (contains? (set (range 41 53)) month) [(+ 2000 year) (- month 40)])))
+
+;private space
+
+(defn- validate-length
+  "Ensure EGN length is 10 symbols"
+  [egn]
+  (= (count egn) 10))
+
 
 (defn- validate-date
   "Check if the extracted date is valid"
@@ -61,3 +64,6 @@
   (let [checksum (calculate-checksum egn)
         control-number (last (explode egn))]
     (= checksum control-number)))
+
+(defn- parse-int [s]
+  (Integer. (re-find  #"\d+" s )))
