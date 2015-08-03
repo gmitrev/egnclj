@@ -3,6 +3,23 @@
 EGN(ЕГН) is the national identification number of Bulgarian citizens.
 This clojure library is designed to validate and parse such numbers.
 
+## Installation
+
+With Leiningen:
+```clj
+[egn "0.1.0"]
+```
+
+With Maven:
+```xml
+<dependency>
+  <groupId>egn</groupId>
+  <artifactId>egn</artifactId>
+  <version>0.1.0</version>
+</dependency>
+
+```
+
 ## Usage
 ```clj
 (require '[egn.core :as egn]))
