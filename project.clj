@@ -1,6 +1,6 @@
 (defproject egn "0.1.0"
   :description "Generator, validator and parser for EGN(ЕГН) numbers"
-  :url "https://github.com/gmitrev/egn"
+  :url "https://github.com/gmitrev/egnclj"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
