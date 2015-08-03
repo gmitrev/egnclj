@@ -7,12 +7,13 @@
 (defn validate
   "Calls all validators"
   [egn]
-  (and (validate-length egn)
-       (validate-date egn)
-       (validate-checksum egn)))
+  (let [egn-str (str egn)]
+    (and (validate-length egn-str)
+         (validate-date egn-str)
+         (validate-checksum egn-str))))
 
 (defn- validate-length
-  "Ensure EGN length is 10"
+  "Ensure EGN length is 10 symbols"
   [egn]
   (= (count egn) 10))
 
