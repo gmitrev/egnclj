@@ -1,5 +1,7 @@
 (ns egn.util
-  (:require [clojure.string  :as string :only [split]]))
+  (:require [clojure.string  :as string :only [split]]
+            [clj-time.core :as t]
+            [clj-time.coerce :as c]))
 
 (def weights '(2 4 8 5 10 9 7 3 6))
 
@@ -36,3 +38,21 @@
   (let [sum (reduce + (map (partial reduce *) (map vector (explode egn) weights)))
         _rest (mod sum 11)]
     (if (< _rest 10) _rest 0)))
+
+(defn- generate-date-between
+  [start end]
+
+  (let [start (c/to-long start)
+        end (c/to-long end)
+        diff (inc (- end start))]
+    (c/from-long (+ start (long (* (Math/random) diff))))))
+
+(defn generate-date
+  "Random date generator"
+  ([]
+   (let [start (t/date-time 1900)
+         end   (-> (t/now) t/year t/date-time)]
+     (generate-date-between start end)))
+  ([from])
+  ([from to]))
+
