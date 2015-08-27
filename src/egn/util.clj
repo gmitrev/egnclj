@@ -53,6 +53,9 @@
    (let [start (t/date-time 1900)
          end   (-> (t/now) t/year t/date-time)]
      (generate-date-between start end)))
-  ([from])
-  ([from to]))
+  ([start]
+   (let [end (-> (t/now) t/year t/date-time)]
+     (generate-date-between start end)))
+  ([start end]
+   (generate-date-between start end)))
 
